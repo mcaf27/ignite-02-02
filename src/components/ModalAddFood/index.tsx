@@ -4,18 +4,31 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 
+interface NewFood {
+  image: string;
+  name: string;
+  price: string;
+  description: string;
+}
+
+interface ModalAddFoodProps {
+  isOpen: boolean;
+  setIsOpen: () => void;
+  handleAddFood: (food: NewFood) => void;
+}
+
 const ModalAddFood = function ({
   isOpen,
-  setIsOpen: toggleOpen,
+  setIsOpen,
   handleAddFood,
-}) {
-  const handleSubmit = async (data) => {
+}: ModalAddFoodProps) {
+  const handleSubmit = async (data: NewFood) => {
     handleAddFood(data);
-    toggleOpen();
+    setIsOpen();
   };
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={toggleOpen}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form onSubmit={handleSubmit}>
         <h1>Novo Prato</h1>
         <Input name="image" placeholder="Cole o link aqui" />
